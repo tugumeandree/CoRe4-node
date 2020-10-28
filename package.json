@@ -1,0 +1,19 @@
+{
+  "name": "core4",
+  "version": "1.0.0",
+  "description": "code which adds two numbers and says hello",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sum",
+    "hello",
+    "app"
+  ],
+  "author": "Andrew Tugume",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
