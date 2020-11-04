@@ -15,7 +15,9 @@
   "author": "Andrew Tugume",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.10.11",
+    "nodemon": "^2.0.6"
   },
   "repository": {
     "type": "git",

@@ -31,7 +31,10 @@ server.get('/',(req,res)=>{
 });
 server.get('/products',(req,res)=>{
     res.json(
-        {data:"Product Data"}
+        {name:"shorts",
+        price:"45000ugx",
+        ProductImage:"https://images.unsplash.com/photo-1597169428688-254b4223ba7c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+    }
         )
 });
 
