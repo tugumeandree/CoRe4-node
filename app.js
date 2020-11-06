@@ -34,7 +34,7 @@ db.once('open',function(){
 
 //EXTERNAL MODEL
 //getting the model from models folder using it's path
-// const Book = require('./models/Book.model'); 
+// const Book = require('./Models/Book.model'); 
 
 
 //INTERNAL MODEL
