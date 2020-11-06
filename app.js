@@ -31,3 +31,35 @@ db.once('open',function(){
 //Data modelling
 // mongoose.model();
 // mongoose.Schema();
+
+//EXTERNAL MODEL
+//getting the model from models folder using it's path
+// const Book = require('./models/Book.model'); 
+
+
+//INTERNAL MODEL
+const BookSchema = new mongoose.Schema({
+    title: { type: String, unique: true },
+    author: { type: String },
+    category: { type: String }
+});
+
+const Book = mongoose.model('Book', BookSchema);
+
+const book2 = new Book({
+    title: 'Book 2',
+    author: 'Joe Doe',
+    category: 'Fiction'
+});
+
+//saves data to the database
+book2.save();
+
+// shows all the books available in the books collection
+Book.find((err, books) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(books);
+    }
+  });
