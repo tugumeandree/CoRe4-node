@@ -5,13 +5,15 @@ const Schema = mongoose.Schema;
 
 //Create a book Schema
 const BookSchema = new Schema({
-    title: { type: String, unique: true },
+    title: { type: String,
+        //  unique: true
+         },
     author: { type: String },
-    category: { type: String },
-    available: {
-        type: Boolean,
-        default: false
-    }
+    category: { type: String }
+    // available: {
+    //     type: Boolean,
+    //     default: false
+    // }
 });
 
 //create the book model 
