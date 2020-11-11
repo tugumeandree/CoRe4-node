@@ -31,6 +31,22 @@ router.post('/postbooks', (req,res)=>{
         res.json({success:false,msg: "Something went wrong" + console.log(err)})
     })
 });
+
+router.delete('/delete/:id',async (req,res) => {
+    try{
+        const bookId = await librarySchema.findById(req.params.id)
+        await bookId.remove({
+            id : req.params.id, 
+            msg : console.log('Item deleted')
+        })
+    } catch (err) {
+        console.error(err)
+        res.json({
+            msg : console.log(err)
+        })
+    }
+    res.end();
+})
 // Book.find((err, books) => {
 //     if (err) {
 //         console.log(err);

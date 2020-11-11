@@ -5,21 +5,28 @@ const mongoose = require('mongoose');
 const express = require ('express');
 const server = express();
 // const bodyParser = require('body-parser');
+
 const dotenv = require('dotenv').config();
 const indexRouter = require('./Routes/index.js');
-
+const lDatabase =  process.env.localDatabase;
+// const path = require('path');
 var hostname = '127.0.0.1';
 var port = '8080';
 
 //Implementing middleware using the server.use method
+
 server.use(express.json());
 server.use(express.urlencoded());
+server.use(express.static('Public'));
 server.use('/',indexRouter);
 
+//Handling static files
+server.get('/',(req,res) =>{
+    res.sendFile('./Public/index.html', { root: __dirname });
+})
 
 
-
-mongoose.connect('mongodb://localhost/coree4',{ useNewUrlParser: true,useUnifiedTopology: true });
+mongoose.connect(lDatabase,{ useNewUrlParser: true,useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.on('error',function(error){
