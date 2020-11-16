@@ -8,7 +8,8 @@ const server = express();
 
 const dotenv = require('dotenv').config();
 const indexRouter = require('./Routes/index.js');
-const lDatabase =  process.env.localDatabase;
+const authRoute = require('./Routes/auth');
+//const lDatabase =  process.env.localDatabase;
 // const path = require('path');
 var hostname = '127.0.0.1';
 var port = '8080';
@@ -16,17 +17,18 @@ var port = '8080';
 //Implementing middleware using the server.use method
 
 server.use(express.json());
-server.use(express.urlencoded());
+server.use(express.urlencoded({ extended: true })); //fixing bug by adding extended true flag
 server.use(express.static('Public'));
-server.use('/',indexRouter);
+server.use('/', indexRouter);
+server.use('/', authRoute);
 
 //Handling static files
-server.get('/',(req,res) =>{
+server.get('/',(req, res) =>{
     res.sendFile('./Public/index.html', { root: __dirname });
 })
 
 
-mongoose.connect(lDatabase,{ useNewUrlParser: true,useUnifiedTopology: true });
+mongoose.connect(process.env.localDatabase, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true}); //extre flags
 const db = mongoose.connection;
 
 db.on('error',function(error){

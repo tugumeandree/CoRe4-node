@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const librarySchema = require('../Models/Book.model.js');
 
-router.get('/',function(req,res){
+router.get('/books',function(req,res){
     librarySchema.find({},(err,bookList)=>{
         if(err){
             console.log(err);
