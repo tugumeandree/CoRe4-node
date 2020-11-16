@@ -17,14 +17,17 @@ var port = '8080';
 
 server.use(express.json());
 server.use(express.urlencoded());
-server.use(express.static('Public'));
+server.use('/static', express.static('public'));
 server.use('/',indexRouter);
 
 //Handling static files
-server.get('/',(req,res) =>{
-    res.sendFile('./Public/index.html', { root: __dirname });
-})
-
+// server.get('/',(req,res) =>{
+//     res.sendFile('./Public/index.html', { root: __dirname });
+// })
+server.get('/test', (req, res) => {
+    res.send('Hello World!')
+  })
+  
 
 mongoose.connect(lDatabase,{ useNewUrlParser: true,useUnifiedTopology: true });
 const db = mongoose.connection;
