@@ -17,6 +17,7 @@ var port = '8080';
 //Implementing middleware using the server.use method
 
 server.use(express.json());
+<<<<<<< HEAD
 server.use(express.urlencoded({ extended: true })); //fixing bug by adding extended true flag
 server.use(express.static('Public'));
 server.use('/', indexRouter);
@@ -27,6 +28,20 @@ server.get('/',(req, res) =>{
     res.sendFile('./Public/index.html', { root: __dirname });
 })
 
+=======
+server.use(express.urlencoded());
+server.use('/static', express.static('public'));
+server.use('/',indexRouter);
+
+//Handling static files
+// server.get('/',(req,res) =>{
+//     res.sendFile('./Public/index.html', { root: __dirname });
+// })
+server.get('/test', (req, res) => {
+    res.send('Hello World!')
+  })
+  
+>>>>>>> b1af0db0e5f017959d01a3549a4457d52c9cede8
 
 mongoose.connect(process.env.localDatabase, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true}); //extre flags
 const db = mongoose.connection;
