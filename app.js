@@ -1,73 +1,74 @@
-//connecting Database to nodejs
-//(mongodb+srv://tugumeandree:<1234567890>@cluster0.9iurt.mongodb.net/<dbname>?retryWrites=true&w=majority)
-
-const mongoose = require('mongoose');
 const express = require ('express');
 const server = express();
-// const bodyParser = require('body-parser');
+const dotenv = require('dotenv') 
+const mongoose = require('mongoose');
 
-const dotenv = require('dotenv').config();
-const indexRouter = require('./Routes/index.js');
-const authRoute = require('./Routes/auth');
-//const lDatabase =  process.env.localDatabase;
-// const path = require('path');
 var hostname = '127.0.0.1';
+
 var port = '8080';
 
-//Implementing middleware using the server.use method
+//Importing Routes
+const authRouter = require('./Routes/auth');
+const indexRouter = require('./Routes/index.js');
 
-server.use(express.json());
-<<<<<<< HEAD
-server.use(express.urlencoded({ extended: true })); //fixing bug by adding extended true flag
-server.use(express.static('Public'));
-server.use('/', indexRouter);
-server.use('/', authRoute);
+dotenv.config(); //loads environment variables from a .env file into process.env
+//const lDatabase =  process.env.localDatabase;
+
+//const path = require('path');
+
+//Implementing middleware using the server.use method
+// const bodyParser = require('body-parser');
+server.use(express.json()); //Built-in middleware function; parses incoming requests with JSON payloads
+server.use(express.urlencoded({ extended: true })); //Built-in middleware function; parses requests with urlencoded payloads
+server.use(express.static('Public')); //Built-in middleware function; serves static files
+
+//Router Middleware
+server.use('/api/library/', indexRouter);
+server.use('/api/user/', authRouter);
 
 //Handling static files
-server.get('/',(req, res) =>{
+server.get('/', (req, res) => {
     res.sendFile('./Public/index.html', { root: __dirname });
 })
 
-=======
-server.use(express.urlencoded());
-server.use('/static', express.static('public'));
-server.use('/',indexRouter);
+//server.use('/static', express.static('public'));
+//server.use('/',indexRouter);
 
-//Handling static files
-// server.get('/',(req,res) =>{
-//     res.sendFile('./Public/index.html', { root: __dirname });
-// })
+//Test Route
 server.get('/test', (req, res) => {
-    res.send('Hello World!')
-  })
+    res.send('Hello World!');
+});
   
->>>>>>> b1af0db0e5f017959d01a3549a4457d52c9cede8
 
-mongoose.connect(process.env.localDatabase, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true}); //extre flags
+//Connecting Server to Databse
+//(mongodb+srv://tugumeandree:<1234567890>@cluster0.9iurt.mongodb.net/<dbname>?retryWrites=true&w=majority)
+mongoose.connect(process.env.localDatabase, 
+    {   useNewUrlParser: true, 
+        useUnifiedTopology: true, 
+        useFindAndModify: false, 
+        useCreateIndex: true
+    }
+);
 const db = mongoose.connection;
 
-db.on('error',function(error){
+db.on('error', function (error) {
     console.log('connection error');
 });
 
-db.once('open',function(){
+db.once('open', function () {
     console.log('database connected');
 });
 
 //Data modelling
-// mongoose.model();
-// mongoose.Schema();
+//mongoose.Schema();
+//mongoose.model();
 
-//EXTERNAL MODEL
+//External modelling
 //getting the model from models folder using it's path
-// const Book = require('./Models/Book.model'); 
-
-
-
+//const Book = require('./Models/Book.model'); 
 
 // shows all the books available in the books collection
 
-
-server.listen(port,function(){
+server.listen(port, () => {
     console.log(`Server is running at http://${hostname}:${port}/`); 
-})
+});

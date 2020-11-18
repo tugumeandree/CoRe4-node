@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const librarySchema = require('../Models/Book.model.js');
+const verify = require('./verifyToken');
 
-router.get('/books',function(req,res){
+router.get('/books', verify, function(req,res){
     librarySchema.find({},(err,bookList)=>{
         if(err){
             console.log(err);
@@ -13,7 +14,7 @@ router.get('/books',function(req,res){
     // res.json({msg:'Hello from our Node Server'});
 });
 
-router.post('/postbooks', (req,res)=>{
+router.post('/postbooks', (req, res)=>{
     const newBooks = new librarySchema({
         title: req.body.title,
         author: req.body.author,
