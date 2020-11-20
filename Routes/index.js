@@ -1,53 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const librarySchema = require('../Models/Book.model.js');
-const verify = require('./verifyToken');
 
-router.get('/books', verify, function(req,res){
-    librarySchema.find({},(err,bookList)=>{
-        if(err){
-            console.log(err);
-        }else{
-            res.json(bookList);
-        }
-    });
+// const librarySchema = require('../Models/Book.model.js');
+
+const {book_create_get,book_create_post,book_create_delete,book_create_put}  = require('../Controllers/booksController');
+const { findById } = require('../Models/Book.model');
+
+// const verify = require('./verifyToken');
+
+router.get('/books', book_create_get);
+    
     // res.json({msg:'Hello from our Node Server'});
-});
 
-router.post('/postbooks', (req, res)=>{
-    const newBooks = new librarySchema({
-        title: req.body.title,
-        author: req.body.author,
-        category: req.body.category
-    });
-    newBooks.save()
-    .then((postedBooks)=>{
-        res.json({
-            postedBooks,
-            msg:"posted books" + console.log("request posted")
+router.post('/postbooks',book_create_post );
 
-        });
-    })
-    .catch((err)=>{
-        res.json({success:false,msg: "Something went wrong" + console.log(err)})
-    })
-});
+router.delete('/delete/:id',book_create_delete);
 
-router.delete('/delete/:id',async (req,res) => {
-    try{
-        const bookId = await librarySchema.findById(req.params.id)
-        await bookId.remove({
-            id : req.params.id, 
-            msg : console.log('Item deleted')
-        })
-    } catch (err) {
-        console.error(err)
-        res.json({
-            msg : console.log(err)
-        })
-    }
-    res.end();
-})
+router.put('/putbooks/:id',book_create_put);
 // Book.find((err, books) => {
 //     if (err) {
 //         console.log(err);

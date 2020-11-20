@@ -20,26 +20,12 @@ dotenv.config(); //loads environment variables from a .env file into process.env
 // const bodyParser = require('body-parser');
 server.use(express.json()); //Built-in middleware function; parses incoming requests with JSON payloads
 server.use(express.urlencoded({ extended: true })); //Built-in middleware function; parses requests with urlencoded payloads
-server.use(express.static('Public')); //Built-in middleware function; serves static files
+// server.use(express.static('Public')); //Built-in middleware function; serves static files
 
-<<<<<<< HEAD
-//Router Middleware
-server.use('/api/library/', indexRouter);
-server.use('/api/user/', authRouter);
-
-//Handling static files
-server.get('/', (req, res) => {
-    res.sendFile('./Public/index.html', { root: __dirname });
-})
-
-//server.use('/static', express.static('public'));
-//server.use('/',indexRouter);
-=======
-server.use(express.json());
-server.use(express.urlencoded());
+// server.use(express.json());
+// server.use(express.urlencoded());
 server.use('/static', express.static('public'));
 server.use('/',indexRouter);
->>>>>>> 4abdce7fdaabfb59eb6328f0e045d07dadd537da
 
 //Test Route
 server.get('/test', (req, res) => {
